@@ -5,6 +5,9 @@ from torch import nn, optim
 from torch.utils.data import DataLoader
 
 from torchvision import datasets, transforms, utils
+###
+from torchvision.datasets import CelebA
+###
 
 from tqdm import tqdm
 
@@ -76,7 +79,7 @@ if __name__ == '__main__':
     parser.add_argument('--epoch', type=int, default=560)
     parser.add_argument('--lr', type=float, default=3e-4)
     parser.add_argument('--sched', type=str)
-    parser.add_argument('path', type=str)
+    parser.add_argument('path', type=str, default='None')
 
     args = parser.parse_args()
 
@@ -93,7 +96,9 @@ if __name__ == '__main__':
         ]
     )
 
-    dataset = datasets.ImageFolder(args.path, transform=transform)
+    #dataset = datasets.ImageFolder(args.path, transform=transform)
+    root_path = '/vol/bitbucket/hgc19'
+    dataset = CelebA(root_path, split='all', transform=transform, download=True)
     loader = DataLoader(dataset, batch_size=128, shuffle=True, num_workers=4)
 
     model = VQVAE().to(device)
