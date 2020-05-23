@@ -44,7 +44,7 @@ def get_next_case_number(directories):
 
 # user_path = output_path + f"{user}/"
 mkdir_p(user_path, 'user')#create user
-type_path = output_path + f"{type_}/"`
+type_path = output_path + f"{type_}/"
 mkdir_p(type_path, 'type')#create subfolder
 sub_directories = next(os.walk(type_path))[1]
 case_number = get_next_case_number(sub_directories)
