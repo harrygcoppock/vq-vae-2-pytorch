@@ -19,7 +19,7 @@ discription = """VQ-VAE:Celeb faces"""
 # venv_path = os.path.join(home, '/vol/bitbucket/hgc19/env/')#path to where the virural environment is
 
 output_path = '../'
-venv_path = '../env'
+venv_path = '../env/'
 
 
 
