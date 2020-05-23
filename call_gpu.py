@@ -5,10 +5,10 @@ import glob
 
 
 user = 'hgc19' # put your username here
-type_ = 'CELEB_A'
+type_ = 'ImageNet'
 
 
-discription = """VQ-VAE:Celeb faces"""
+discription = """VQ-VAE:ImageNet"""
 
 # home = os.environ['HOME']
 # local_branch_path = os.path.join(home, 'Documents/rl-medical/')#path to where the code is
