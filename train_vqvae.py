@@ -96,9 +96,9 @@ if __name__ == '__main__':
         ]
     )
 
-    #dataset = datasets.ImageFolder(args.path, transform=transform)
     root_path = '/vol/bitbucket/hgc19/vq-vae-2-pytorch'
-    dataset = CelebA(root_path, split='all', transform=transform, download=False)
+    dataset = datasets.ImageFolder(root_path, transform=transform)
+    # dataset = CelebA(root_path, split='all', transform=transform, download=False)
     # dataset = ImageNet(root_path, split='train')
     loader = DataLoader(dataset, batch_size=128, shuffle=True, num_workers=4)
 
