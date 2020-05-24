@@ -85,8 +85,8 @@ if __name__ == '__main__':
 
     print(args)
 
-    # device = 'cuda'
-    device = torch.device('cuda')
+    device = 'cuda'
+    # device = torch.device('cuda')
 
     transform = transforms.Compose(
         [

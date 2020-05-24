@@ -74,7 +74,7 @@ with open(job_file, 'w') as fh:
     fh.writelines(f"#SBATCH --error={output_path}{case_number}.err\n")
     fh.writelines("#SBATCH --mail-type=ALL\n")
     fh.writelines(f"#SBATCH --mail-user={user}\n")
-    fh.writelines("source /vol/cuda/10.0.130-cudnn7.6.4.38/setup.sh\n")
+    fh.writelines("source /vol/cuda/10.2.89-cudnn7.6.4.38/setup.sh\n")
     fh.writelines("TERM=vt100\n") # or TERM=xterm
     fh.writelines("/usr/bin/nvidia-smi\n")
     fh.writelines("uptime\n")
