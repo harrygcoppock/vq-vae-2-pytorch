@@ -81,4 +81,4 @@ with open(job_file, 'w') as fh:
     fh.writelines(f"python train_vqvae.py")
 
 
-subprocess.call(f"(. {venv_path}bin/activate && sbatch -w cloud-vm-40-190 {job_file})", shell=True)
+subprocess.call(f"(. {venv_path}bin/activate && sbatch -w kingfisher {job_file})", shell=True)
