@@ -78,7 +78,7 @@ with open(job_file, 'w') as fh:
     fh.writelines("TERM=vt100\n") # or TERM=xterm
     fh.writelines("/usr/bin/nvidia-smi\n")
     fh.writelines("uptime\n")
-    fh.writelines(f"python train_vqvae.py")
+    fh.writelines(f"python {file_to_run}")
 
 
 subprocess.call(f"(. {venv_path}bin/activate && sbatch -w cloud-vm-40-190 {job_file})", shell=True)
