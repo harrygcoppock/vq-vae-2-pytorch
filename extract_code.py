@@ -38,7 +38,7 @@ if __name__ == '__main__':
     parser.add_argument('--size', type=int, default=256)
     parser.add_argument('--ckpt', type=str)
     parser.add_argument('--name', type=str)
-    parser.add_argument('path', type=str)
+    # parser.add_argument('path', type=str)
 
     args = parser.parse_args()
 
@@ -52,8 +52,8 @@ if __name__ == '__main__':
             transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
         ]
     )
-
-    dataset = ImageFileDataset(args.path, transform=transform)
+    root_path = '/vol/bitbucket/hgc19/vq-vae-2-pytorch'
+    dataset = ImageFileDataset(root_path, transform=transform)
     loader = DataLoader(dataset, batch_size=128, shuffle=False, num_workers=4)
 
     model = VQVAE()
