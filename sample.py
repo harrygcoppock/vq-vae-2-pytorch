@@ -27,7 +27,7 @@ def sample_model(model, device, batch, size, temperature, condition=None):
 def load_model(model, checkpoint, device):
     ckpt = torch.load(os.path.join('checkpoint', checkpoint))
 
-    
+
     if 'args' in ckpt:
         args = ckpt['args']
 
@@ -61,7 +61,7 @@ def load_model(model, checkpoint, device):
             n_cond_res_block=args.n_cond_res_block,
             cond_res_channel=args.n_res_channel,
         )
-        
+
     if 'model' in ckpt:
         ckpt = ckpt['model']
 
@@ -76,7 +76,7 @@ if __name__ == '__main__':
     device = 'cuda'
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--batch', type=int, default=8)
+    parser.add_argument('--batch', type=int, default=4)
     parser.add_argument('--vqvae', type=str)
     parser.add_argument('--top', type=str)
     parser.add_argument('--bottom', type=str)

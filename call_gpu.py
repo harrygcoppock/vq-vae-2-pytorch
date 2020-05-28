@@ -66,7 +66,7 @@ job_file = os.path.join(input_path, f"{case_number}.sh")
 # file_to_run = 'extract_code.py --ckpt checkpoint/vqvae_050.pt --name First_run'
 # file_to_run = 'train_pixelsnail.py First_run --batch 16'
 # file_to_run = 'train_pixelsnail.py First_run --batch 16 --hier bottom'
-file_to_run = 'python sample.py --vqvae checkpoint/vqvae_050.pt --top checkpoint/pixelsnail_top_013.pt --bottom checkpoint/pixelsnail_bottom_004.pt output_init.png'
+file_to_run = 'python sample.py --vqvae vqvae_050.pt --top pixelsnail_top_013.pt --bottom pixelsnail_bottom_004.pt output_init.png'
 
 with open(job_file, 'w') as fh:
 
