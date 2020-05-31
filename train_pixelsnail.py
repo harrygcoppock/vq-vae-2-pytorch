@@ -68,8 +68,9 @@ def train(args, epoch, loader, model, optimizer, scheduler, device):
         )
 
         if i % 10 == 0:
-            wandb.log({"loss": loss.item():.5f,
-                        "accuracy": accuracy:.5f})
+            loss = loss.item()
+            wandb.log({"loss": loss})
+            wandb.log({"accuracy": accuracy})
 
 
 class PixelTransform:
