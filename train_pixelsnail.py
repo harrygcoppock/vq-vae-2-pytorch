@@ -190,6 +190,7 @@ if __name__ == '__main__':
 
         decoded_sample = model_vqvae.decode_code(top_sample, bottom_sample)
         decoded_sample = decoded_sample.clamp(-1, 1)
+        decoded_sample = decoded_sample.cpu()
         decoded_sample = decoded_sample.numpy()
 
         wandb.log({"GenImages": wandb.Tensor(decoded_sample)})
