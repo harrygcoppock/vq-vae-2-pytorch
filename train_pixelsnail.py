@@ -23,7 +23,7 @@ from torchvision.utils import save_image
 from vqvae import VQVAE
 
 import wandb
-wandb.init(config=args)
+wandb.init()
 
 from sample import sample_model, load_model
 
