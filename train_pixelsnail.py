@@ -16,6 +16,17 @@ from dataset import LMDBDataset
 from pixelsnail import PixelSNAIL
 from scheduler import CycleScheduler
 
+import os
+
+from torchvision.utils import save_image
+
+from vqvae import VQVAE
+
+import wandb
+wandb.init(config=args)
+
+from sample import sample_model, load_model
+
 
 def train(args, epoch, loader, model, optimizer, scheduler, device):
     loader = tqdm(loader)
@@ -55,6 +66,10 @@ def train(args, epoch, loader, model, optimizer, scheduler, device):
                 f'acc: {accuracy:.5f}; lr: {lr:.5f}'
             )
         )
+
+        if i % 10 == 0:
+            wandb.log({"loss": loss.item():.5f,
+                        "accuracy": accuracy:.5f})
 
 
 class PixelTransform:
@@ -147,9 +162,33 @@ if __name__ == '__main__':
             optimizer, args.lr, n_iter=len(loader) * args.epoch, momentum=None
         )
 
+    wandb.watch(model, log="all")
+
     for i in range(args.epoch):
         train(args, i, loader, model, optimizer, scheduler, device)
         torch.save(
             {'model': model.module.state_dict(), 'args': args},
             f'checkpoint/pixelsnail_{args.hier}_{str(i + 1).zfill(3)}.pt',
         )
+
+        model_vqvae = load_model('vqvae', 'vqvae_050.pt', device)
+
+        if args.hier == 'top':
+
+            model_top = load_model('pixelsnail_top', 'pixelsnail_top_'+str(i + 1).zfill(3)+'.pt', device)
+            model_bottom = load_model('pixelsnail_bottom', 'pixelsnail_bottom_004.pt', device)
+        elif args.hier == 'bottom':
+            model_top = load_model('pixelsnail_top', 'pixelsnail_top_003.pt', device)
+            model_bottom = load_model('pixelsnail_bottom', 'pixelsnail_bottom_'+str(i + 1).zfill(3)+'.pt', device)
+
+
+        top_sample = sample_model(model_top, device, 1, [32, 32], 1.0)
+        bottom_sample = sample_model(
+            model_bottom, device, 1, [64, 64], 1.0, condition=top_sample
+        )
+
+        decoded_sample = model_vqvae.decode_code(top_sample, bottom_sample)
+        decoded_sample = decoded_sample.clamp(-1, 1)
+        decoded_sample = decoded_sample.numpy()
+
+        wandb.log({"GenImages": wandb.Tensor(decoded_sample)})
